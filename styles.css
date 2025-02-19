@@ -1,50 +1,25 @@
-/* Apply fonts to the whole page */
+/* Center content with margins */
+.container {
+    max-width: 900px; /* Adjust width */
+    margin: auto; /* Center it */
+    padding: 20px; /* Add spacing inside */
+    background: white; /* Optional: White background */
+}
+
+/* Keep text readable */
 body {
     font-family: 'Roboto', sans-serif;
     font-size: 18px;
     color: #333;
     background-color: #f9f9f9;
     margin: 0;
-    padding: 20px;
+    padding: 0;
     line-height: 1.6;
 }
 
-/* Title styling */
-h1 {
-    font-family: 'Lato', sans-serif;
-    font-size: 36px;
-    font-weight: 700;
-    text-align: center;
-    color: #222;
-}
-
-/* Subtitles */
-h2 {
-    font-family: 'Lato', sans-serif;
-    font-size: 28px;
-    font-weight: 400;
-    margin-top: 20px;
-    color: #444;
-}
-
-/* Paragraphs */
-p {
-    font-size: 18px;
-    font-weight: 300;
-    max-width: 900px;
-    margin: auto;
-    text-align: justify;
-}
-
-/* Center plots */
-#plot {
-    margin: auto;
-    width: 90%;
-}
-
-/* Style for the slider */
-input[type="range"] {
-    width: 50%;
-    margin: 10px auto;
+/* Center figures */
+img {
     display: block;
+    margin: 20px auto;
+    max-width: 100%;
 }
