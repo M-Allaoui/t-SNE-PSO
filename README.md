@@ -6,8 +6,17 @@
 - An **interactive plot** comparing **t-SNE** and **t-SNE-PSO** based on perplexity,
 - Includes additional performance comparison figures.
 
+## The requirements of tSNE-PSO python code:
+- Python 3.7+,
+- Numpy,
+- Pandas,
+- Scikit-learn,
+- Scipy
+
+## t-SNE-PSO published paper:
 If you are interested in t-SNE-PSO published paper please click **[here](https://doi.org/10.1016/j.eswa.2025.126398)**.
 
+## Citation:
 If this work helps you please use the following BibTeX to cite it:
 
 @article{allaoui2025t,
