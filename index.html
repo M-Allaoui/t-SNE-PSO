@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>t-SNE-PSO: Optimized t-SNE with PSO</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>t-SNE-PSO: Optimized t-SNE with PSO</h1>
+
+    <h2>What is t-SNE-PSO?</h2>
+    <p>
+        t-SNE-PSO is a novel optimization of t-SNE that replaces gradient descent with Particle Swarm Optimization (PSO). 
+        This technique improves convergence, reduces the risk of getting trapped in local minima, and enhances clustering quality. 
+        By adjusting cognitive and social coefficients dynamically, t-SNE-PSO balances exploration and exploitation more effectively 
+        than traditional t-SNE.
+    </p>
+
+    <h2>Interactive Visualization: Effect of Perplexity</h2>
+    <p>
+        Below, you can interact with t-SNE and t-SNE-PSO embeddings by adjusting the perplexity parameter. 
+        Perplexity controls how the algorithm balances local and global relationships in the data. 
+    </p>
+
+    <label for="perplexity">Perplexity:</label>
+    <input type="range" id="perplexity" min="5" max="100" step="5" value="30" oninput="loadData(this.value)">
+    <span id="perplexity-value">30</span>
+
+    <div id="plot" style="width: 100%; height: 500px;"></div>
+
+    <h2>Comparing t-SNE and t-SNE-PSO</h2>
+    <p>
+        The figures below illustrate key improvements of t-SNE-PSO over standard t-SNE. 
+        These results are based on clustering accuracy (ACC), Normalized Mutual Information (NMI), and other evaluation metrics.
+    </p>
+
+    <div style="display: flex; justify-content: center;">
+        <img src="figures/comparison.png" alt="Comparison of t-SNE vs t-SNE-PSO" width="80%">
+    </div>
+
+    <h2>Conclusion</h2>
+    <p>
+        t-SNE-PSO provides a more robust alternative to traditional t-SNE by leveraging PSO for optimization.
+        The interactive plots and evaluation metrics confirm its superior performance, particularly in clustering tasks.
+    </p>
+
+    <script>
+        function loadData(perplexity) {
+            document.getElementById("perplexity-value").textContent = perplexity;
+            let tsneFile = `data/t-SNE/tsne_perp${perplexity}.json`;
+            let tsnePsoFile = `data/t-SNE-PSO/tsne_pso_perp${perplexity}.json`;
+
+            Promise.all([
+                fetch(tsneFile).then(response => response.json()),
+                fetch(tsnePsoFile).then(response => response.json())
+            ])
+            .then(([tsneData, tsnePsoData]) => {
+                var trace1 = {
+                    x: tsneData.x, y: tsneData.y,
+                    mode: 'markers',
+                    marker: { color: tsneData.labels, colorscale: 'Viridis', size: 6 },
+                    type: 'scatter',
+                    name: 't-SNE',
+					text: tsneData.labels,
+					hoverinfo: 'text'
+                };
+
+                var trace2 = {
+                    x: tsnePsoData.x, y: tsnePsoData.y,
+                    mode: 'markers',
+                    marker: { color: tsnePsoData.labels, colorscale: 'Jet', size: 6 },
+                    type: 'scatter',
+                    name: 't-SNE-PSO',
+					text: tsnePsoData.labels,
+					hoverinfo: 'text',
+                    xaxis: 'x2',
+                    yaxis: 'y2'
+                };
+
+                var layout = {
+                    title: `t-SNE vs. t-SNE-PSO (Perplexity: ${perplexity})`,
+                    grid: { rows: 1, columns: 2, pattern: 'independent' },
+                    xaxis: { title: 'Dimension 1' }, 
+                    yaxis: { title: 'Dimension 2' },
+                    xaxis2: { title: 'Dimension 1', anchor: 'y2' },
+                    yaxis2: { title: 'Dimension 2', anchor: 'x2' }
+                };
+
+                Plotly.newPlot('plot', [trace1, trace2], layout);
+            })
+            .catch(error => console.error("Error loading JSON:", error));
+        }
+
+        window.onload = () => loadData(30);
+    </script>
+</body>
+</html>
