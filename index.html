@@ -37,15 +37,64 @@
 
     <div id="plot" style="width: 100%; height: 500px;"></div>
 
-    <h2>Comparing t-SNE and t-SNE-PSO</h2>
-    <p>
-        The figures below illustrate key improvements of t-SNE-PSO over standard t-SNE. 
-        These results are based on clustering accuracy (ACC), Normalized Mutual Information (NMI), and other evaluation metrics.
-    </p>
+    <h2>Comparison of t-SNE vs. t-SNE-PSO Using KDE Plots</h2>
+<p>
+    The following KDE plots illustrate the distribution of loss values for t-SNE and t-SNE-PSO across different datasets. 
+    A narrower, more concentrated KDE curve indicates more stable optimization and better convergence.
+</p>
 
-    <div style="display: flex; justify-content: center;">
-        <img src="figures/comparison.png" alt="Comparison of t-SNE vs t-SNE-PSO" width="80%">
-    </div>
+<!-- Pendigits -->
+<h3>Pendigits</h3>
+<div style="display: flex; justify-content: center; gap: 20px;">
+    <figure>
+        <img src="KDE Plots/KDE t-SNE Pendigits.png" alt="KDE t-SNE Pendigits" width="45%">
+        <figcaption>t-SNE</figcaption>
+    </figure>
+    <figure>
+        <img src="KDE Plots/KDE t-SNE-PSO Pendigits.png" alt="KDE t-SNE-PSO Pendigits" width="45%">
+        <figcaption>t-SNE-PSO</figcaption>
+    </figure>
+</div>
+
+<!-- USPS -->
+<h3>USPS</h3>
+<div style="display: flex; justify-content: center; gap: 20px;">
+    <figure>
+        <img src="KDE Plots/KDE t-SNE USPS.png" alt="KDE t-SNE USPS" width="45%">
+        <figcaption>t-SNE</figcaption>
+    </figure>
+    <figure>
+        <img src="KDE Plots/KDE t-SNE-PSO USPS.png" alt="KDE t-SNE-PSO USPS" width="45%">
+        <figcaption>t-SNE-PSO</figcaption>
+    </figure>
+</div>
+
+<!-- MNIST -->
+<h3>MNIST</h3>
+<div style="display: flex; justify-content: center; gap: 20px;">
+    <figure>
+        <img src="KDE Plots/KDE t-SNE MNIST.png" alt="KDE t-SNE MNIST" width="45%">
+        <figcaption>t-SNE</figcaption>
+    </figure>
+    <figure>
+        <img src="KDE Plots/KDE t-SNE-PSO MNIST.png" alt="KDE t-SNE-PSO MNIST" width="45%">
+        <figcaption>t-SNE-PSO</figcaption>
+    </figure>
+</div>
+
+<!-- Fashion MNIST -->
+<h3>Fashion-MNIST</h3>
+<div style="display: flex; justify-content: center; gap: 20px;">
+    <figure>
+        <img src="KDE Plots/KDE t-SNE FMNIST.png" alt="KDE t-SNE Fashion MNIST" width="45%">
+        <figcaption>t-SNE</figcaption>
+    </figure>
+    <figure>
+        <img src="KDE Plots/KDE t-SNE-PSO FMNIST.png" alt="KDE t-SNE-PSO Fashion MNIST" width="45%">
+        <figcaption>t-SNE-PSO</figcaption>
+    </figure>
+</div>
+
 
     <h2>Conclusion</h2>
     <p>
