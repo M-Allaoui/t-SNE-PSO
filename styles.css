@@ -1,6 +1,6 @@
 /* Center content with margins */
 .container {
-    max-width: 1200px; /* Increase width */
+    max-width: 900px; /* Increase width */
     margin: auto; /* Center it */
     padding: 20px; /* Add spacing inside */
     background: white; /* Optional: White background */
@@ -22,14 +22,14 @@ body {
     display: flex;
     justify-content: center; /* Ensure images are centered */
     align-items: center;
-    gap: 10px; /* Adjust the space between figures */
-    margin: 20px auto;
-    max-width: 1200px; /* Expand figure section */
+    gap: 5px; /* Adjust the space between figures */
+    margin: 5px auto;
+    max-width: 900px; /* Expand figure section */
 }
 
 /* Resize images properly */
 .figure-container img {
     width: 48%; /* Make sure both images fit in the same line */
     height: auto;
-    max-width: 550px; /* Allow larger images */
+    max-width: 430px; /* Allow larger images */
 }
