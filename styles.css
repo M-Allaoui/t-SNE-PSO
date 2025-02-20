@@ -38,6 +38,6 @@ img {
 .figure-container img {
     width: 48%; /* Each figure takes 48% of the container */
     height: auto; /* Maintain aspect ratio */
-    max-width: 800px; /* Allow large figures */
+    max-width: 400px; /* Allow large figures */
 }
 
