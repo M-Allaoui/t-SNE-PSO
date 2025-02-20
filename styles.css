@@ -30,12 +30,12 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10px 0;
+    margin: 5px 0;
 }
 
 /* Make images larger and occupy full width */
 .figure-container img {
-    width: 50vw; /* Use viewport width for better scaling */
+    width: 100vw; /* Use viewport width for better scaling */
     height: auto; /* Maintain aspect ratio */
     max-width: 600px; /* Limit max size */
 }
