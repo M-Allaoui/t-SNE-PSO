@@ -22,7 +22,7 @@ body {
     display: flex;
     justify-content: center; /* Ensure images are centered */
     align-items: center;
-    gap: 2px; /* Reduce space between figures */
+    gap: 10px; /* Adjust the space between figures */
     margin: 20px auto;
     max-width: 1200px; /* Expand figure section */
 }
