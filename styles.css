@@ -17,12 +17,13 @@ body {
     line-height: 1.6;
 }
 
-/* Center figures */
+/* Center figures 
 img {
     display: block;
     margin: 10px auto;
     max-width: 100%;
 }
+*/
 
 /* Center figures and reduce spacing */
 .figure-container {
