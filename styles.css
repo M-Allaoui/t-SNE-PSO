@@ -35,7 +35,7 @@ img {
 
 /* Make images larger and occupy full width */
 .figure-container img {
-    width: 100vw; /* Use viewport width for better scaling */
+    width: 300vw; /* Use viewport width for better scaling */
     height: auto; /* Maintain aspect ratio */
     max-width: 600px; /* Limit max size */
 }
