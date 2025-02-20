@@ -30,6 +30,7 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
+	gap: 0px; /* Remove space between figures */
     margin: 5px 0;
 }
 
