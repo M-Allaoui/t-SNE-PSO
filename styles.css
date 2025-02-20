@@ -31,13 +31,13 @@ img {
     justify-content: center;
     align-items: center;
     gap: 5px; /* Small gap between images */
-    margin: 20px auto;
-    max-width: 80%; /* Ensure figures do not exceed page width */
+    margin: 10px auto;
+    max-width: 48%; /* Ensure figures do not exceed page width */
 }
 
 /* Resize images properly */
 .figure-container img {
-    width: 48%; /* Each image takes almost half of the container */
+    width: 45%; /* Each image takes almost half of the container */
     height: auto;
     max-width: 500px; /* Prevents excessive size */
 }
