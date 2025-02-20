@@ -25,21 +25,22 @@ img {
 }
 */
 
-/* Keep figures within page margins */
+/* Center figures and keep them within page width */
 .figure-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px; /* Small gap between figures */
+    gap: 5px; /* Small gap between images */
     margin: 20px auto;
-    max-width: 50%; /* Ensures figures don't exceed page width */
+    max-width: 80%; /* Ensure figures do not exceed page width */
 }
 
 /* Resize images properly */
 .figure-container img {
-    width: 45%; /* Each image takes half of the container */
+    width: 48%; /* Each image takes almost half of the container */
     height: auto;
-    max-width: 600px; /* Prevents excessive size */
+    max-width: 500px; /* Prevents excessive size */
 }
+
 
 
