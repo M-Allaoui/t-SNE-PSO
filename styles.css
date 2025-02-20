@@ -31,7 +31,7 @@ img {
     justify-content: center;
     align-items: center;
     gap: 5px; /* Small gap between figures */
-    margin: 20px auto;
+    margin: auto;
     max-width: 900px; /* Ensure container does not exceed page width */
     width: 100%; /* Make sure it adjusts to screen size */
 }
@@ -40,7 +40,7 @@ img {
 .figure-container img {
     width: 48%; /* Each image takes almost half of the container */
     height: auto;
-    max-width: 400px; /* Prevents excessive size */
+    max-width: 445px; /* Prevents excessive size */
 }
 
 
