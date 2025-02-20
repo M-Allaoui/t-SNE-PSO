@@ -29,13 +29,13 @@ img {
     display: flex;
     justify-content: space-around; /* Reduce spacing */
     align-items: center;
-    gap: 10px; /* Adjust the gap between images */
+    gap: 5px; /* Adjust the gap between images */
     margin: 10px 0;
 }
 
 /* Style for images */
 .figure-container img {
-    width: 48%; /* Make images bigger */
+    width: 60%; /* Make images bigger */
     height: auto; /* Keep aspect ratio */
-    border-radius: 5px; /* Optional: rounded corners */
+    /*border-radius: 5px;  Optional: rounded corners */
 }
