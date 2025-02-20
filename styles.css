@@ -37,6 +37,6 @@ img {
 /* Adjust image size */
 .figure-container img {
     width: 50%; /* Make images larger */
-    max-width: 400px; /* Set a maximum size */
+    max-width: 500px; /* Set a maximum size */
     height: auto; /* Maintain aspect ratio */
 }
