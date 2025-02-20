@@ -25,18 +25,17 @@ img {
 }
 */
 
-/* Center figures and reduce spacing */
+/* Center and align figures properly */
 .figure-container {
     display: flex;
-    justify-content: center; /* Center images */
+    justify-content: center;
     align-items: center;
-    gap: 5px; /* Reduce space between images */
-    margin: 5px 0; /* Reduce top & bottom margin */
+    margin: 10px 0;
 }
 
-/* Adjust image size */
+/* Make images larger and occupy full width */
 .figure-container img {
-    width: 50%; /* Make images larger */
-    max-width: 500px; /* Set a maximum size */
+    width: 50vw; /* Use viewport width for better scaling */
     height: auto; /* Maintain aspect ratio */
+    max-width: 600px; /* Limit max size */
 }
