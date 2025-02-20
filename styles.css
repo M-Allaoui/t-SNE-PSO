@@ -32,7 +32,7 @@ img {
     align-items: center;
     gap: 10px; /* Small gap between figures */
     margin: 20px auto;
-    max-width: 90%; /* Ensures figures don't exceed page width */
+    max-width: 50%; /* Ensures figures don't exceed page width */
 }
 
 /* Resize images properly */
