@@ -35,7 +35,7 @@ img {
 
 /* Style for images */
 .figure-container img {
-    width: 48%; /* Make images bigger */
+    width: 49%; /* Make images bigger */
     height: auto; /* Keep aspect ratio */
     border-radius: 5px; /* Optional: rounded corners */
 }
