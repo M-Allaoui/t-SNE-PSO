@@ -23,3 +23,19 @@ img {
     margin: 20px auto;
     max-width: 100%;
 }
+
+/* Style for figure container */
+.figure-container {
+    display: flex;
+    justify-content: space-around; /* Reduce spacing */
+    align-items: center;
+    gap: 10px; /* Adjust the gap between images */
+    margin: 10px 0;
+}
+
+/* Style for images */
+.figure-container img {
+    width: 48%; /* Make images bigger */
+    height: auto; /* Keep aspect ratio */
+    border-radius: 5px; /* Optional: rounded corners */
+}
