@@ -25,19 +25,21 @@ img {
 }
 */
 
-/* Align figures properly and remove gaps */
+/* Keep figures within page margins */
 .figure-container {
     display: flex;
-    justify-content: space-between; /* Spread figures evenly */
+    justify-content: center;
     align-items: center;
-    gap: 0px; /* Ensure no space between figures */
-    margin: 10px 0;
+    gap: 10px; /* Small gap between figures */
+    margin: 20px auto;
+    max-width: 90%; /* Ensures figures don't exceed page width */
 }
 
-/* Make images larger */
+/* Resize images properly */
 .figure-container img {
-    width: 48%; /* Each figure takes 48% of the container */
-    height: auto; /* Maintain aspect ratio */
-    max-width: 400px; /* Allow large figures */
+    width: 45%; /* Each image takes half of the container */
+    height: auto;
+    max-width: 600px; /* Prevents excessive size */
 }
+
 
