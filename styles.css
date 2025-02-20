@@ -24,18 +24,18 @@ img {
     max-width: 100%;
 }
 
-/* Style for figure container */
+/* Center figures and reduce spacing */
 .figure-container {
     display: flex;
-    justify-content: space-around; /* Reduce spacing */
+    justify-content: center; /* Center images */
     align-items: center;
-    gap: 5px; /* Adjust the gap between images */
-    margin: 10px 0;
+    gap: 5px; /* Reduce space between images */
+    margin: 5px 0; /* Reduce top & bottom margin */
 }
 
-/* Style for images */
+/* Adjust image size */
 .figure-container img {
-    width: 49%; /* Make images bigger */
-    height: auto; /* Keep aspect ratio */
-    border-radius: 5px; /* Optional: rounded corners */
+    width: 50%; /* Make images larger */
+    max-width: 400px; /* Set a maximum size */
+    height: auto; /* Maintain aspect ratio */
 }
