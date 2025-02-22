@@ -19,6 +19,7 @@ If you are interested in t-SNE-PSO published paper please click **[here](https:/
 ## Citation:
 If this work helps you please use the following BibTeX to cite it:
 
+```
 @article{allaoui2025t,
   title={t-SNE-PSO: Optimizing t-SNE using particle swarm optimization},
   author={Allaoui, Mebarka and Belhaouari, Samir Brahim and Hedjam, Rachid and Bouanane, Khadra and Kherfi, Mohammed Lamine},
@@ -28,3 +29,4 @@ If this work helps you please use the following BibTeX to cite it:
   year={2025},
   publisher={Elsevier}
 }
+```
