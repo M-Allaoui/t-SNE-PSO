@@ -31,9 +31,11 @@
         Perplexity controls how the algorithm balances local and global relationships in the data. 
     </p>
 
-    <label for="perplexity">Perplexity:</label>
-    <input type="range" id="perplexity" min="5" max="100" step="5" value="30" oninput="loadData(this.value)">
-    <span id="perplexity-value">30</span>
+    <div class="slider-container">
+        <label for="perplexity">Perplexity:</label>
+        <input type="range" id="perplexity" min="5" max="100" step="5" value="30" oninput="loadData(this.value)">
+        <span id="perplexity-value">30</span>
+    </div>
 
     <div id="plot" style="width: 100%; height: 500px;"></div>
 
@@ -106,6 +108,40 @@
     </p>
 
     <script>
+        function getPlotConfiguration() {
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                return {
+                    config: {
+                        responsive: true,
+                        displayModeBar: 'hover',
+                        displaylogo: false,
+                        modeBarButtonsToRemove: ['lasso2d', 'select2d', 'zoomIn2d', 'zoomOut2d', 'autoScale2d']
+                    },
+                    layout3dMods: {
+                        height: 350,
+                        scene: { aspectratio: { x: 1, y: 1, z: 0.5 } },
+                        scene2: { aspectratio: { x: 1, y: 1, z: 0.5 } },
+                        scene3: { aspectratio: { x: 1, y: 1, z: 0.5 } }
+                    },
+                    layout2dMods: {
+                        height: 300
+                    }
+                };
+            }
+            
+            // Return desktop layout modifications
+            return {
+                config: {
+                    responsive: true,
+                    displaylogo: false
+                },
+                layout3dMods: {},
+                layout2dMods: {}
+            };
+        }
+
         function loadData(perplexity) {
             document.getElementById("perplexity-value").textContent = perplexity;
             
@@ -225,10 +261,11 @@
                     height: 600,
                     width: 1200,
                     margin: {
-                        l: 20,
-                        r: 20,
-                        b: 20,
-                        t: 80
+                        l: 30,
+                        r: 30,
+                        b: 60,
+                        t: 100,
+                        pad: 0
                     },
                     showlegend: false,
                     annotations: [
@@ -259,7 +296,9 @@
                             yref: 'paper',
                             font: {size: 16}
                         }
-                    ]
+                    ],
+                    autosize: true,
+                    responsive: true
                 };
 
                 // Create 2D traces
@@ -350,10 +389,11 @@
                     height: 400,
                     width: 1200,
                     margin: {
-                        l: 20,
-                        r: 20,
-                        b: 40,
-                        t: 80
+                        l: 30,
+                        r: 30,
+                        b: 60,
+                        t: 100,
+                        pad: 0
                     },
                     showlegend: false,
                     annotations: [
@@ -384,16 +424,38 @@
                             yref: 'paper',
                             font: {size: 16}
                         }
-                    ]
+                    ],
+                    autosize: true,
+                    responsive: true
                 };
 
-                Plotly.newPlot('plot', [trace1, trace2, trace3], layout);
-                Plotly.newPlot('plot2d', [trace2d1, trace2d2, trace2d3], layout2d);
+                const plotConfig = getPlotConfiguration();
+
+                Object.assign(layout, plotConfig.layout3dMods);
+                Object.assign(layout2d, plotConfig.layout2dMods);
+
+                Plotly.newPlot('plot', [trace1, trace2, trace3], layout, plotConfig.config);
+                Plotly.newPlot('plot2d', [trace2d1, trace2d2, trace2d3], layout2d, plotConfig.config);
+
+
+                function resizePlots() {
+                    Plotly.relayout('plot', {
+                        autosize: true
+                    });
+                    Plotly.relayout('plot2d', {
+                        autosize: true
+                    });
+                }
+
+                window.addEventListener('resize', resizePlots);
+
+                window.addEventListener('orientationchange', function() {
+                    setTimeout(resizePlots, 100);
+                });
             })
             .catch(error => console.error("Error loading JSON:", error));
         }
 
-        // Make sure to load data on initial page load
         document.addEventListener('DOMContentLoaded', function() {
             loadData(document.getElementById('perplexity').value);
         });

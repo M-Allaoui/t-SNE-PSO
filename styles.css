@@ -1,70 +1,222 @@
-/* Center content with margins */
+/* Base styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #333;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
 .container {
-    max-width: 1200px; /* Container width */
-    margin: 0 auto; /* Center it */
-    padding: 20px; /* Add spacing inside */
-    background: white; /* Optional: White background */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px;
+    background: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding: 0 20px;
+    box-sizing: border-box;
 }
 
-/* Keep text readable */
-body {
-    font-family: 'Roboto', sans-serif;
-    font-size: 18px;
-    color: #333;
-    background-color: #f9f9f9;
-    margin: 0 auto;
-    padding: 20px;
-    line-height: 1.6;
-    max-width: 1200px;
-}
-
-/* Center figures and control width */
-.figure-container {
-    display: flex;
-    justify-content: center; /* Ensure images are centered */
-    align-items: center; /* Center content horizontally */
-    text-align: center; /* Center the caption text */
-    gap: 2px; /* Adjust the space between figures */
-    margin: 2px auto; /* Add some margin for spacing */
-    width: 80%; /* Ensure the container takes full width */
-}
-
-/* Resize images properly */
-.figure-container img {
-    width: 120%; /* Adjust width to fit two images with a small gap */
-    /* height: auto;  Maintain aspect ratio */
-    max-width: 120%; /* Allow images to scale within the container */
-    object-fit: contain; /* Ensure images fit nicely without distortion */
-}
-
-/* Style for captions */
-.figure-container figcaption {
-    margin-top: 10px; /* Add some space between the image and caption */
-    font-size: 16px; /* Adjust font size as needed */
-    font-weight: 400; /* Adjust font weight as needed */
-    color: #555; /* Adjust caption color */
-}
-
-h1, h2 {
+/* Typography */
+h1 {
+    font-size: 1.8rem;
     color: #2c3e50;
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
-#plot {
+h2 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+    margin-top: 1.2rem;
+    margin-bottom: 0.8rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+/* Plots */
+#plot, #plot2d {
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    margin: 0 auto;
+    margin: 0 auto 20px;
     display: block;
     width: 100%;
     max-width: 1200px;
+    height: auto !important;
+    min-height: 400px;
+}
+
+/* Perplexity slider */
+.slider-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 15px 0;
+    width: 100%;
+}
+
+label {
+    margin-right: 10px;
+    font-weight: bold;
 }
 
 input[type="range"] {
-    width: 300px;
+    width: 60%;
+    max-width: 300px;
     margin: 0 10px;
+}
+
+/* Image gallery */
+.figure-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 15px auto;
+    width: 100%;
+}
+
+.figure-container figure {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 450px;
+}
+
+.figure-container img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.figure-container figcaption {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #555;
+    text-align: center;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    /* Tablet and mobile styles */
+    body {
+        font-size: 14px;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    h2 {
+        font-size: 1.3rem;
+    }
+    
+    h3 {
+        font-size: 1.1rem;
+    }
+    
+    #plot, #plot2d {
+        min-height: 300px;
+    }
+    
+    .figure-container {
+        flex-direction: column;
+    }
+    
+    input[type="range"] {
+        width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Small mobile devices */
+    body {
+        font-size: 13px;
+    }
+    
+    h1 {
+        font-size: 1.3rem;
+    }
+    
+    h2 {
+        font-size: 1.1rem;
+    }
+    
+    .container {
+        padding: 10px;
+    }
+    
+    #plot, #plot2d {
+        min-height: 250px;
+    }
+    
+    input[type="range"] {
+        width: 90%;
+    }
+}
+
+/* Fix for Plotly responsive sizing */
+.js-plotly-plot, .plot-container {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.plotly-graph-div {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+@media screen and (max-width: 768px) {
+    #plot {
+        height: 350px !important;
+        min-height: 350px !important;
+    }
+    
+    #plot2d {
+        height: 300px !important;
+        min-height: 300px !important;
+    }
+    
+    .modebar {
+        transform: scale(0.8);
+        transform-origin: right top;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #plot {
+        height: 300px !important;
+        min-height: 300px !important;
+    }
+    
+    #plot2d {
+        height: 250px !important;
+        min-height: 250px !important;
+    }
+    
+    /* reduce toolbar size on very small screens */
+    .modebar {
+        transform: scale(0.7);
+        transform-origin: right top;
+    }
 }
