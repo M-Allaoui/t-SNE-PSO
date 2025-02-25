@@ -37,6 +37,9 @@
 
     <div id="plot" style="width: 100%; height: 500px;"></div>
 
+    <h3>2D Visualization</h3>
+    <div id="plot2d" style="width: 100%; height: 400px;"></div>
+
     <h2>Comparison of t-SNE vs. t-SNE-PSO Using KDE Plots</h2>
 		<p>
 		The following KDE plots illustrate the distribution of loss values for t-SNE and t-SNE-PSO across different datasets. 
@@ -105,51 +108,295 @@
     <script>
         function loadData(perplexity) {
             document.getElementById("perplexity-value").textContent = perplexity;
+            
+            // Load 3D data
             let tsneFile = `data/t-SNE/tsne_perp${perplexity}.json`;
             let tsnePsoFile = `data/t-SNE-PSO/tsne_pso_perp${perplexity}.json`;
+            let umapFile = `data/UMAP/umap_perp${perplexity}.json`;
+            
+            // Load 2D data
+            let tsneFile2D = `data/2D/t-SNE/tsne_perp${perplexity}.json`;
+            let tsnePsoFile2D = `data/2D/t-SNE-PSO/tsne_pso_perp${perplexity}.json`;
+            let umapFile2D = `data/2D/UMAP/umap_perp${perplexity}.json`;
 
+            // Load both 3D and 2D data in parallel
             Promise.all([
                 fetch(tsneFile).then(response => response.json()),
-                fetch(tsnePsoFile).then(response => response.json())
+                fetch(tsnePsoFile).then(response => response.json()),
+                fetch(umapFile).then(response => response.json()),
+                fetch(tsneFile2D).then(response => response.json()),
+                fetch(tsnePsoFile2D).then(response => response.json()),
+                fetch(umapFile2D).then(response => response.json())
             ])
-            .then(([tsneData, tsnePsoData]) => {
+            .then(([tsneData, tsnePsoData, umapData, tsneData2D, tsnePsoData2D, umapData2D]) => {
                 var trace1 = {
-                    x: tsneData.x, y: tsneData.y,
+                    x: tsneData.x,
+                    y: tsneData.y,
+                    z: tsneData.z,
                     mode: 'markers',
-                    marker: { color: tsneData.labels, colorscale: 'Viridis', size: 6 },
-                    type: 'scatter',
+                    marker: {
+                        color: tsneData.labels,
+                        colorscale: 'Viridis',
+                        size: 6,
+                        showscale: false
+                    },
+                    type: 'scatter3d',
                     name: 't-SNE',
-					text: tsneData.labels,
-					hoverinfo: 'text'
+                    text: tsneData.labels.map(l => `Digit: ${l}`),
+                    hoverinfo: 'text+name',
+                    showlegend: false,
+                    scene: 'scene'
                 };
 
                 var trace2 = {
-                    x: tsnePsoData.x, y: tsnePsoData.y,
+                    x: tsnePsoData.x,
+                    y: tsnePsoData.y,
+                    z: tsnePsoData.z,
                     mode: 'markers',
-                    marker: { color: tsnePsoData.labels, colorscale: 'Jet', size: 6 },
+                    marker: {
+                        color: tsnePsoData.labels,
+                        colorscale: 'Jet',
+                        size: 6,
+                        showscale: false
+                    },
+                    type: 'scatter3d',
+                    name: 't-SNE-PSO',
+                    text: tsnePsoData.labels.map(l => `Digit: ${l}`),
+                    hoverinfo: 'text+name',
+                    showlegend: false,
+                    scene: 'scene2'
+                };
+
+                var trace3 = {
+                    x: umapData.x,
+                    y: umapData.y,
+                    z: umapData.z,
+                    mode: 'markers',
+                    marker: {
+                        color: umapData.labels,
+                        colorscale: 'Portland',
+                        size: 6,
+                        showscale: false
+                    },
+                    type: 'scatter3d',
+                    name: 'UMAP',
+                    text: umapData.labels.map(l => `Digit: ${l}`),
+                    hoverinfo: 'text+name',
+                    showlegend: false,
+                    scene: 'scene3'
+                };
+
+                // 3D layout
+                var layout = {
+                    title: `Comparison of Dimensionality Reduction Methods (Perplexity: ${perplexity})`,
+                    grid: {
+                        rows: 1, 
+                        columns: 3,
+                        pattern: 'independent',
+                        roworder: 'top to bottom'
+                    },
+                    scene: {
+                        domain: {
+                            row: 0,
+                            column: 0
+                        },
+                        xaxis: {title: 'X'},
+                        yaxis: {title: 'Y'},
+                        zaxis: {title: 'Z'}
+                    },
+                    scene2: {
+                        domain: {
+                            row: 0,
+                            column: 1
+                        },
+                        xaxis: {title: 'X'},
+                        yaxis: {title: 'Y'},
+                        zaxis: {title: 'Z'}
+                    },
+                    scene3: {
+                        domain: {
+                            row: 0,
+                            column: 2
+                        },
+                        xaxis: {title: 'X'},
+                        yaxis: {title: 'Y'},
+                        zaxis: {title: 'Z'}
+                    },
+                    height: 600,
+                    width: 1200,
+                    margin: {
+                        l: 20,
+                        r: 20,
+                        b: 20,
+                        t: 80
+                    },
+                    showlegend: false,
+                    annotations: [
+                        {
+                            text: 't-SNE',
+                            showarrow: false,
+                            x: 0.17, 
+                            y: 1.03,
+                            xref: 'paper',
+                            yref: 'paper',
+                            font: {size: 16}
+                        },
+                        {
+                            text: 't-SNE-PSO',
+                            showarrow: false,
+                            x: 0.5,
+                            y: 1.03,
+                            xref: 'paper',
+                            yref: 'paper',
+                            font: {size: 16}
+                        },
+                        {
+                            text: 'UMAP',
+                            showarrow: false,
+                            x: 0.83,
+                            y: 1.03,
+                            xref: 'paper',
+                            yref: 'paper',
+                            font: {size: 16}
+                        }
+                    ]
+                };
+
+                // Create 2D traces
+                var trace2d1 = {
+                    x: tsneData2D.x,
+                    y: tsneData2D.y,
+                    mode: 'markers',
+                    marker: {
+                        color: tsneData2D.labels,
+                        colorscale: 'Viridis',
+                        size: 6
+                    },
+                    type: 'scatter',
+                    name: 't-SNE',
+                    text: tsneData2D.labels.map(l => `Digit: ${l}`),
+                    hoverinfo: 'text+name',
+                    xaxis: 'x',
+                    yaxis: 'y'
+                };
+
+                var trace2d2 = {
+                    x: tsnePsoData2D.x,
+                    y: tsnePsoData2D.y,
+                    mode: 'markers',
+                    marker: {
+                        color: tsnePsoData2D.labels,
+                        colorscale: 'Jet',
+                        size: 6
+                    },
                     type: 'scatter',
                     name: 't-SNE-PSO',
-					text: tsnePsoData.labels,
-					hoverinfo: 'text',
+                    text: tsnePsoData2D.labels.map(l => `Digit: ${l}`),
+                    hoverinfo: 'text+name',
                     xaxis: 'x2',
                     yaxis: 'y2'
                 };
 
-                var layout = {
-                    title: `t-SNE vs. t-SNE-PSO (Perplexity: ${perplexity})`,
-                    grid: { rows: 1, columns: 2, pattern: 'independent' },
-                    xaxis: { title: 'Dimension 1' }, 
-                    yaxis: { title: 'Dimension 2' },
-                    xaxis2: { title: 'Dimension 1', anchor: 'y2' },
-                    yaxis2: { title: 'Dimension 2', anchor: 'x2' }
+                var trace2d3 = {
+                    x: umapData2D.x,
+                    y: umapData2D.y,
+                    mode: 'markers',
+                    marker: {
+                        color: umapData2D.labels,
+                        colorscale: 'Portland',
+                        size: 6
+                    },
+                    type: 'scatter',
+                    name: 'UMAP',
+                    text: umapData2D.labels.map(l => `Digit: ${l}`),
+                    hoverinfo: 'text+name',
+                    xaxis: 'x3',
+                    yaxis: 'y3'
                 };
 
-                Plotly.newPlot('plot', [trace1, trace2], layout);
+                // 2D layout
+                var layout2d = {
+                    title: `2D Projections (Perplexity: ${perplexity})`,
+                    grid: {
+                        rows: 1,
+                        columns: 3,
+                        pattern: 'independent',
+                        roworder: 'top to bottom'
+                    },
+                    xaxis: {
+                        title: 'X',
+                        domain: [0, 0.3]
+                    },
+                    yaxis: {
+                        title: 'Y',
+                        domain: [0, 0.9]
+                    },
+                    xaxis2: {
+                        title: 'X',
+                        domain: [0.35, 0.65]
+                    },
+                    yaxis2: {
+                        title: 'Y',
+                        domain: [0, 0.9]
+                    },
+                    xaxis3: {
+                        title: 'X',
+                        domain: [0.7, 1.0]
+                    },
+                    yaxis3: {
+                        title: 'Y',
+                        domain: [0, 0.9]
+                    },
+                    height: 400,
+                    width: 1200,
+                    margin: {
+                        l: 20,
+                        r: 20,
+                        b: 40,
+                        t: 80
+                    },
+                    showlegend: false,
+                    annotations: [
+                        {
+                            text: 't-SNE',
+                            showarrow: false,
+                            x: 0.17,
+                            y: 1.03,
+                            xref: 'paper',
+                            yref: 'paper',
+                            font: {size: 16}
+                        },
+                        {
+                            text: 't-SNE-PSO',
+                            showarrow: false,
+                            x: 0.5,
+                            y: 1.03,
+                            xref: 'paper',
+                            yref: 'paper',
+                            font: {size: 16}
+                        },
+                        {
+                            text: 'UMAP',
+                            showarrow: false,
+                            x: 0.83,
+                            y: 1.03,
+                            xref: 'paper',
+                            yref: 'paper',
+                            font: {size: 16}
+                        }
+                    ]
+                };
+
+                Plotly.newPlot('plot', [trace1, trace2, trace3], layout);
+                Plotly.newPlot('plot2d', [trace2d1, trace2d2, trace2d3], layout2d);
             })
             .catch(error => console.error("Error loading JSON:", error));
         }
 
-        window.onload = () => loadData(30);
+        // Make sure to load data on initial page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData(document.getElementById('perplexity').value);
+        });
     </script>
     </div>
 </body>

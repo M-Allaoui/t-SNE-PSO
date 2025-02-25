@@ -15,6 +15,12 @@ from sklearn.cluster import KMeans
 import json
 MACHINE_EPSILON = np.finfo(np.double).eps
 from time import time
+import os
+
+os.makedirs("data/t-SNE-PSO", exist_ok=True)
+os.makedirs("data/t-SNE", exist_ok=True)
+os.makedirs("data/UMAP", exist_ok=True)
+os.makedirs("Results", exist_ok=True)
 
 def squared_dist_mat(X):
     """calculates the squared eucledian distance matrix
@@ -133,7 +139,7 @@ def pso(X, n_components, verbose, perplexity, num_particles, max_iter, h, f, w, 
     # Initialize particles and velocities
     for i in range(num_particles):
         #particle = TSNE(n_components=n_components, perplexity=perplexity).fit_transform(X)
-        particle = umap.UMAP(n_neighbors=perplexity, min_dist=0.0).fit_transform(X)
+        particle = umap.UMAP(n_neighbors=perplexity, min_dist=0.0, n_components=n_components).fit_transform(X)
 
         best_fitness[i], grad = objective_function(particle, P, degrees_of_freedom, n_samples, n_components, compute_error=True, )
 
@@ -218,14 +224,20 @@ d = scale(digits.data)
 #d=d[:180]
 y = digits.target
 #y=y[:180]
-for i in range(50, 101, 5):
+for i in range(5, 100, 5):
     print(i)
     start_time=time()
-    gbest=pso(d, 2, compute_error=True, verbose=1, perplexity=i, num_particles=5, max_iter=100, h=1e-20, f=1e-21, w=1e-20)
+    gbest = pso(d, n_components=3, compute_error=True, verbose=1, perplexity=i, 
+                num_particles=5, max_iter=100, h=1e-20, f=1e-21, w=1e-20)
     end_time=time()-start_time
     # Save results as JSON
-    data = {"x": gbest[:, 0].tolist(), "y": gbest[:, 1].tolist(), "labels": y.tolist()}
-    with open("tsne-pso-results-perp"+str(i)+".json", "w") as f:
+    data = {
+        "x": gbest[:, 0].tolist(),
+        "y": gbest[:, 1].tolist(),
+        "z": gbest[:, 2].tolist(),
+        "labels": y.tolist()
+    }
+    with open(f"data/t-SNE-PSO/tsne_pso_perp{i}.json", "w") as f:
         json.dump(data, f)
 
     km = KMeans(n_clusters=10)
@@ -241,6 +253,30 @@ for i in range(50, 101, 5):
     df['target'] = y
     df['x'] = gbest[:, 0]
     df['y'] = gbest[:, 1]
+    df['z'] = gbest[:, 2]
     plt.figure(figsize=(12, 8))
     sns.scatterplot(x='x', y='y', hue='target', palette=sns.color_palette("hsv", 10), data=df)
-    plt.savefig("Results/PenDigit_t-SNE_vis_perp"+str(i)+".png")
+    plt.savefig(f"Results/PenDigit_t-SNE_vis_perp{i}.png")
+
+    tsne_results = TSNE(n_components=3, perplexity=i).fit_transform(d)
+    tsne_data = {
+        "x": tsne_results[:, 0].tolist(),
+        "y": tsne_results[:, 1].tolist(),
+        "z": tsne_results[:, 2].tolist(),
+        "labels": y.tolist()
+    }
+    with open(f"data/t-SNE/tsne_perp{i}.json", "w") as f:
+        json.dump(tsne_data, f)
+
+    print(f"Generating UMAP data for perplexity {i}")
+    umap_results = umap.UMAP(n_neighbors=i, min_dist=0.1, n_components=3).fit_transform(d)
+    umap_data = {
+        "x": umap_results[:, 0].tolist(), 
+        "y": umap_results[:, 1].tolist(),
+        "z": umap_results[:, 2].tolist(),
+        "labels": y.tolist()
+    }
+    with open(f"data/UMAP/umap_perp{i}.json", "w") as f:
+        json.dump(umap_data, f)
+
+    

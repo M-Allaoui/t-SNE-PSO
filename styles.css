@@ -1,9 +1,14 @@
 /* Center content with margins */
 .container {
-    max-width: 900px; /* Container width */
-    margin: auto; /* Center it */
+    max-width: 1200px; /* Container width */
+    margin: 0 auto; /* Center it */
     padding: 20px; /* Add spacing inside */
     background: white; /* Optional: White background */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0 20px;
 }
 
 /* Keep text readable */
@@ -12,9 +17,10 @@ body {
     font-size: 18px;
     color: #333;
     background-color: #f9f9f9;
-    margin: 0;
-    padding: 0;
+    margin: 0 auto;
+    padding: 20px;
     line-height: 1.6;
+    max-width: 1200px;
 }
 
 /* Center figures and control width */
@@ -42,4 +48,23 @@ body {
     font-size: 16px; /* Adjust font size as needed */
     font-weight: 400; /* Adjust font weight as needed */
     color: #555; /* Adjust caption color */
+}
+
+h1, h2 {
+    color: #2c3e50;
+}
+
+#plot {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin: 0 auto;
+    display: block;
+    width: 100%;
+    max-width: 1200px;
+}
+
+input[type="range"] {
+    width: 300px;
+    margin: 0 10px;
 }

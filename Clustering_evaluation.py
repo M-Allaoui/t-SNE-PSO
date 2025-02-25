@@ -1,7 +1,14 @@
 from sklearn import metrics
 from sklearn.metrics import normalized_mutual_info_score
-from sklearn.utils.linear_assignment_ import linear_assignment
+from scipy.optimize import linear_sum_assignment
 import numpy as np
+
+try:
+    from sklearn.utils.linear_assignment_ import linear_assignment
+except ImportError:
+    def linear_assignment(cost_matrix):
+        row_ind, col_ind = linear_sum_assignment(cost_matrix)
+        return np.array(list(zip(row_ind, col_ind)))
 
 def best_cluster_fit(y_true, y_pred):
     y_true = y_true.astype(np.int64)
