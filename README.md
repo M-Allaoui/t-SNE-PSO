@@ -6,7 +6,7 @@
 - An **interactive plot** comparing **t-SNE** and **t-SNE-PSO** based on perplexity,
 - Includes additional performance comparison figures.
 
-- Check out [t-SNE-PSO C implementation](https://github.com/Draglesss/tsne_pso)
+Check out [t-SNE-PSO C implementation](https://github.com/Draglesss/tsne_pso)
 
 ## The requirements of tSNE-PSO python code:
 - Python 3.7+,
